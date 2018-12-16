@@ -1,8 +1,16 @@
 {
   "name": "IDM-Remote",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "repository": "https://github.com/SamanFekri/IDM-Remote.git",
   "author": "skings <samanf74@gmail.com>",
-  "license": "GPL3"
+  "license": "GPL-3.0",
+  "dependencies": {
+    "hapi": "^17.8.1",
+    "nodemon": "^1.18.9"
+  },
+  "scripts": {
+    "start": "node salam.js",
+    "dev": "nodemon"
+  }
 }
