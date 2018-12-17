@@ -15,13 +15,13 @@ const server = Hapi.server({
   port: Config.port
 });
 
+
 // Add the route
 server.route({
   method: 'GET',
-  path: '/hello',
+  path: '/',
   handler: function (request, h) {
-
-    return 'hello world';
+    return h.file('./index.html');
   }
 });
 
@@ -70,6 +70,7 @@ server.route({
 // Start the server
 async function start() {
 
+  await server.register(require('inert'));
   try {
     await server.start();
   }
