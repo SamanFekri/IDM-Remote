@@ -3,17 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <title>IDM Remote</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="./assets/style/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 
 <div class="container">
     <h1 id="main-header">IDM Remote</h1>
+
+    <div id="vue-app">
+        <div class="input-group" v-for="(item, index) in items">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="url-lbl">URL</span>
+            </div>
+            <input type="url" class="form-control" placeholder="http://example.com/image.jpg" style="max-width: 80%"
+                   aria-describedby="url-lbl" v-model="item.link">
+            <div class="input-group-prepend" style="margin-left: 3%;">
+                <span class="input-group-text" id="name-lbl">Name</span>
+            </div>
+            <input type="text" class="form-control" style="max-width: 15%" placeholder="myimg.jpg"
+                   aria-describedby="name-lbl"
+                   v-model="item.name">
+            <button v-if="(index !== 0)" type="button" class="btn btn-danger btn-circle btn-customize fa fa-minus"
+                    @click="removeRow($event, index)"></button>
+            <span v-if="(index === 0)" style="width: 35px; height: 35px"></span>
+        </div>
+        <div style="height: 30px">
+            <button type="button" class="btn btn-primary btn-circle btn-customize fa fa-send" @click="send"></button>
+            <button type="button" class="btn btn-success btn-circle btn-customize fa fa-plus" @click="addRow"></button>
+        </div>
+    </div>
+
+
 </div>
 
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+<script>
+  let app = new Vue({
+    el: '#vue-app',
+    data: {
+      items: [{link: "", name: ""}]
+    },
+    methods: {
+      addRow: function (event) {
+        this.items.push({link: "", name: ""});
+      },
+      removeRow: function (event, index) {
+        this.items.splice(index, 1);
+      },
+      send: function (event) {
+        this.items = [{link: "", name: ""}];
+      }
+    }
+  });
+</script>
 </body>
 </html>
